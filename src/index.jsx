@@ -65,7 +65,7 @@ const App = () => {
         const randomNumber = Math.floor(Math.random() * 4);
         setRandomChosenColour(buttonColours[randomNumber]);
         setGamePattern((prevValue) => [...prevValue, buttonColours[randomNumber]]);
-        playSound(randomChosenColour);
+        playSound(buttonColours[randomNumber]);
         //   animatePress(randomChosenColour);
     }
     console.log("randomChosenColour is " + randomChosenColour);
@@ -82,6 +82,7 @@ const App = () => {
 
     //sound function for button
     function playSound(name) {
+        console.log(name);
         const sound = new Audio("sounds/" + name + ".mp3");
         sound.play();
     }
