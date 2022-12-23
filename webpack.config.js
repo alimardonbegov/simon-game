@@ -7,12 +7,18 @@ module.exports = {
     context: path.resolve(__dirname, "src"),
     mode: "development",
     entry: {
-        main: ["@babel/polyfill", "./index.jsx"],
+        main: ["@babel/polyfill", "./index.tsx"],
     },
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].[hash].js",
         clean: true,
+    },
+    resolve: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".png", ".css", ".jpg"],
+        alias: {
+            "@sounds": path.resolve(__dirname, "src/sounds"),
+        },
     },
     plugins: [
         new HtmlWebpackPlugin({ template: "./index.html" }),
@@ -51,6 +57,19 @@ module.exports = {
                         presets: ["@babel/preset-env", "@babel/preset-react"],
                     },
                 },
+            },
+            {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            presets: ["@babel/preset-env", "@babel/preset-typescript"],
+                        },
+                    },
+                    "ts-loader",
+                ],
             },
         ],
     },

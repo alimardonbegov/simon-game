@@ -1,8 +1,24 @@
 import React, { useEffect, useState } from "react";
 
-export function ColorButton({ color, randomChosen, userChosen, onClick, buttonClicked, disabled }) {
-    const [chosenByRandom, setChosenByRandom] = useState();
-    const [chosenByUser, setChosenByUser] = useState();
+interface IColorButton {
+    color: string;
+    randomChosen: string;
+    userChosen: string;
+    onClick: any; // functional
+    buttonClicked: boolean;
+    disabled: boolean;
+}
+
+export const ColorButton: React.FC<IColorButton> = ({
+    color,
+    randomChosen,
+    userChosen,
+    onClick,
+    buttonClicked,
+    disabled,
+}) => {
+    const [chosenByRandom, setChosenByRandom] = useState<string>("");
+    const [chosenByUser, setChosenByUser] = useState<string>("");
 
     const checkRandomColor = () => (color == randomChosen ? setChosenByRandom("chosen-color") : "");
     const checkUserColor = () => (color == userChosen ? setChosenByUser("pressed") : "");
@@ -32,4 +48,4 @@ export function ColorButton({ color, randomChosen, userChosen, onClick, buttonCl
             className={`btn ${color} ${chosenByRandom} ${chosenByUser}`}
         ></button>
     );
-}
+};

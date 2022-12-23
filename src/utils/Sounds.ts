@@ -1,5 +1,5 @@
 export default class Sounds {
-    static playButtonSound(name) {
+    static playButtonSound(name: string) {
         new Audio("sounds/" + name + ".mp3").play();
     }
     static playWrongSound() {

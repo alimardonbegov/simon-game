@@ -1,23 +1,21 @@
-import "./styles/styles.css";
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
-import { ColorButton } from "./components/ColorButton.jsx";
+import { ColorButton } from "./components/ColorButton";
 import Sounds from "./utils/Sounds";
 
-const App = () => {
-    const buttonColours = ["green", "red", "yellow", "blue"];
+export const App = () => {
+    const buttonColours: Array<string> = ["green", "red", "yellow", "blue"];
 
-    const [gamePattern, setGamePattern] = useState([]);
-    const [randomChosenColour, setRandomChosenColour] = useState("");
+    const [gamePattern, setGamePattern] = useState<string[]>([]);
+    const [randomChosenColour, setRandomChosenColour] = useState<string>("");
 
-    const [userClickedPattern, setUserClickedPattern] = useState([]);
-    const [userChosenColour, setUserChosenColour] = useState("");
+    const [userClickedPattern, setUserClickedPattern] = useState<string[]>([]);
+    const [userChosenColour, setUserChosenColour] = useState<string>("");
 
-    const [buttonClicked, setButtonClicked] = useState(false);
-    const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [level, setLevel] = useState(1);
-    const [gameOn, setGameOn] = useState(false);
-    const [header, setHeader] = useState("Press A Key or Click Here to Start");
+    const [buttonClicked, setButtonClicked] = useState<boolean>(false);
+    const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+    const [level, setLevel] = useState<number>(1);
+    const [gameOn, setGameOn] = useState<boolean>(false);
+    const [header, setHeader] = useState<string>("Press A Key or Click Here to Start");
 
     const startByClick = () => {
         if (!gameOn) {
@@ -45,7 +43,7 @@ const App = () => {
 
     //  $(document).on("keypress", start);
 
-    const clickOnColorButton = (el) => {
+    const clickOnColorButton = (el: string) => {
         setButtonClicked((prevValue) => !prevValue);
         el !== undefined && setUserClickedPattern((prevValue) => [...prevValue, el]);
         Sounds.playButtonSound(el);
@@ -106,6 +104,3 @@ const App = () => {
         </>
     );
 };
-
-const rootElement = document.getElementById("root");
-ReactDOM.createRoot(rootElement).render(<App />);
