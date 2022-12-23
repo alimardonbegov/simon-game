@@ -36,15 +36,12 @@ footer {
 }
 
 .container {
-    display: block;
-    width: 50%;
     margin: auto;
-}
-
-.row {
     display: grid;
+    width: 50%;
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
+    justify-items: center;
 }
 
 .btn {
