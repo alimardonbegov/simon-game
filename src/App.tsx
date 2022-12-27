@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./redux/store";
 import { ColorButton } from "./components/ColorButton";
-import { checkPattern } from "./redux/gameSlice";
+import { checkWrongPattern } from "./redux/gameSlice";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 
@@ -12,7 +12,7 @@ export const App = () => {
     const buttonColours = useSelector((state: RootState) => state.game.buttonColours);
 
     useEffect(() => {
-        dispatch(checkPattern());
+        dispatch(checkWrongPattern());
     }, [userClickedPattern]);
 
     return (

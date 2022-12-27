@@ -56,18 +56,31 @@ export const gameSlice = createSlice({
             state.level = state.level + 1;
             state.header = `level ${state.level}`;
             state.randomChosenColour = state.buttonColours[randomNumber];
-            state.gamePattern.push(state.randomChosenColour);
-            Sounds.playButtonSound(state.randomChosenColour);
+            state.gamePattern.push(state.buttonColours[randomNumber]);
+            Sounds.playButtonSound(state.buttonColours[randomNumber]);
         },
 
         checkPattern: (state) => {
             const currentIndex = state.userClickedPattern.length - 1;
-            if (state.gamePattern.length === 0 && state.userClickedPattern.length === 0) {
-            } else if (state.gamePattern.length > state.userClickedPattern.length) {
-                state.buttonDisabled = false;
+            if (state.gamePattern.length === state.userClickedPattern.length) {
                 if (state.gamePattern[currentIndex] === state.userClickedPattern[currentIndex]) {
-                } else {
-                    document.body.classList.add("game-over"); //! dublicate
+                    const randomNumber = Math.floor(Math.random() * 4); //! dublicate
+                    state.userClickedPattern = [];
+                    state.level = state.level + 1;
+                    state.header = `level ${state.level}`;
+                    state.randomChosenColour = state.buttonColours[randomNumber];
+                    state.gamePattern.push(state.buttonColours[randomNumber]);
+                    Sounds.playButtonSound(state.buttonColours[randomNumber]);
+                }
+            }
+        },
+
+        checkWrongPattern: (state) => {
+            const currentIndex = state.userClickedPattern.length - 1;
+            if (state.gamePattern.length > state.userClickedPattern.length) {
+                state.buttonDisabled = false;
+                if (state.gamePattern[currentIndex] !== state.userClickedPattern[currentIndex]) {
+                    document.body.classList.add("game-over"); //! dublicate, rewrite without document....
                     state.header = "Game over, Press Any Key or Click Here to Restart";
                     Sounds.playWrongSound();
                     setTimeout(() => {
@@ -79,16 +92,8 @@ export const gameSlice = createSlice({
                 }
             } else if (state.gamePattern.length === state.userClickedPattern.length) {
                 state.buttonDisabled = true;
-                if (state.gamePattern[currentIndex] === state.userClickedPattern[currentIndex]) {
-                    const randomNumber = Math.floor(Math.random() * 4); //! dublicate
-                    state.userClickedPattern = [];
-                    state.level = state.level + 1;
-                    state.header = `level ${state.level}`;
-                    state.randomChosenColour = state.buttonColours[randomNumber];
-                    state.gamePattern.push(state.buttonColours[randomNumber]);
-                    Sounds.playButtonSound(state.buttonColours[randomNumber]);
-                } else {
-                    document.body.classList.add("game-over"); //! dublicate
+                if (state.gamePattern[currentIndex] !== state.userClickedPattern[currentIndex]) {
+                    document.body.classList.add("game-over"); //! dublicate, rewrite without document....
                     state.header = "Game over, Press Any Key or Click Here to Restart";
                     Sounds.playWrongSound();
                     setTimeout(() => {
@@ -103,5 +108,11 @@ export const gameSlice = createSlice({
     },
 });
 
-export const { startByClick, startOver, clickOnColorButton, nextSequence, checkPattern } =
-    gameSlice.actions;
+export const {
+    startByClick,
+    startOver,
+    clickOnColorButton,
+    nextSequence,
+    checkPattern,
+    checkWrongPattern,
+} = gameSlice.actions;

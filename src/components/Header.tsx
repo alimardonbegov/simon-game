@@ -10,13 +10,9 @@ export const Header: React.FC = () => {
 
     const gameStart = async () => {
         if (gameOn === false) {
-            console.log("handle gameStart in gameOn");
-
             await dispatch(startByClick());
             dispatch(nextSequence());
         } else if (header === "Game over, Press Any Key or Click Here to Restart") {
-            console.log("handle gameStart in header");
-
             await dispatch(startOver());
             dispatch(nextSequence());
         }
